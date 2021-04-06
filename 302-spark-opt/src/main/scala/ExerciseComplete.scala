@@ -265,7 +265,8 @@ object ExerciseComplete extends App {
     val rdd6a = rddW
       .join(rddS).filter(_._2._2.country=="UK")
       .map({case(k,v)=>(v._2.name,v._1.temperature)})
-      .reduceByKey((x,y)=>{if(x<y) y else x}).map({case(k,v)=>(v,k)})
+      .reduceByKey((x,y)=>{if(x<y) y else x})
+      .map({case(k,v)=>(v,k)})
       .sortByKey(false)
 
     // Pushing down filters is always a good move
@@ -292,6 +293,4 @@ object ExerciseComplete extends App {
       .map({case(k,v)=>(v._1,v._2.name)})
       .sortByKey(false)
   }
-
-
 }
